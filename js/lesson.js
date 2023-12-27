@@ -1,4 +1,4 @@
-
+//phone block
 
 const phoneInput = document.querySelector('#phone_input')
 const phoneButton = document.querySelector('#phone_button')
@@ -15,6 +15,7 @@ phoneButton.onclick = () => {
     }
 }
 
+//TABS
 const tabContentBlocks = document.querySelectorAll('.tab_content_block')
 const tabs = document.querySelectorAll('.tab_content_item')
 const tabsParent = document.querySelector('.tab_content_items')
@@ -124,6 +125,57 @@ converter(eur, som, usd,'eur')
 //         som.value = (usd.value * data.usd).toFixed(2)
 //
 //     })
+// })
+
+//card switcher
+
+
+const cards = document.querySelector('.card') ,
+    btnNext = document.querySelector('#btn-next'),
+    btnPrev = document.querySelector('#btn-prev')
+
+const card = document.getElementById('card')
+let countCard = 1
+
+
+const loadCardData = (numCards) => {
+    fetch(`https://jsonplaceholder.typicode.com/todos/${countCard}`)
+        .then(response=>response.json())
+        .then((data)=>{
+            cards.innerHTML= `
+                <p>${data.title}</p>
+                <p style="color: ${data.completed ?'green':'red'}">${data.completed}</p>
+                <span>${data.id}</span>
+            `
+        })
+}
+
+loadCardData(countCard)
+
+btnNext.onclick = () => {
+    countCard++
+    if (countCard > 200){
+        countCard = 1
+    }
+    loadCardData(countCard)
+}
+btnPrev.onclick = () =>{
+    countCard--
+    if (countCard < 1){
+        countCard = 200
+    }
+    loadCardData(countCard)
+}
+
+fetch('https://jsonplaceholder.typicode.com/posts')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+    })
+    .catch(error => {
+        console.error('ERROR 404', error)
+    })
+
 // })
 
 setTimeout(()=> openModal(), 10000)
