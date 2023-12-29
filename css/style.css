@@ -2,7 +2,7 @@
 
 .header {
     height: 80px;
-    background: #2c2d2f;
+    background: url("https://cdn.shazoo.ru/c1400x625/492023_mCd8cy8GXe_cyberpunk2077.jpg") no-repeat center;
     display: flex;
     align-items: center;
     width: 100%;
@@ -27,8 +27,9 @@
     font-size: 22px;
     height: 60px;
     width: fit-content;
-    background: var(--orange);
+    font-family: Cyberpunk, sans-serif;
     padding: 8px;
+    background: linear-gradient(90deg, rgba(35,0,144,1) 9%, rgba(161,0,211,1) 56%, rgba(0,19,133,1) 100%);
     color: white;
     border-radius: 5px;
     cursor: pointer;
@@ -424,4 +425,8 @@
     }
     100% {
     }
+}
+
+#prev {
+    transform: rotate(180deg);
 }

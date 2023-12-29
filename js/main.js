@@ -77,4 +77,4 @@ prev.onclick = () => {
 autoSlider(index)
 setTimeout(()=> openModal(), 10000)
 
-scrollEnd()
+

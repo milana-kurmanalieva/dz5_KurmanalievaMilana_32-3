@@ -7,10 +7,10 @@ const phoneResult = document.querySelector('#phone_result')
 const regExp = /^\+996 [25793]\d{2} \d{2}-\d{2}-\d{2}$/
 phoneButton.onclick = () => {
     if (regExp.test(phoneInput.value)){
-        phoneResult.innerHTML = 'OK'
+        phoneResult.innerHTML = '&#9787;'
         phoneResult.style.color = 'green'
     }else {
-        phoneResult.innerHTML = 'NOT OK'
+        phoneResult.innerHTML = '&#9785;'
         phoneResult.style.color = 'red'
     }
 }
@@ -62,19 +62,49 @@ tabsAuto()
 
 
 //CONVERTER
-// Home work 5 
+// Home work 5
 const som = document.querySelector('#som')
 const usd = document.querySelector('#usd')
 const eur = document.querySelector('#eur')
 
+// const converter = (element, targetElement, targetElement2, current) => {
+//     element.oninput = () => {
+//         const xhr = new XMLHttpRequest()
+//         xhr.open('GET', '../data/converter.json')
+//         xhr.setRequestHeader('Content-type', 'application/json')
+//         xhr.send()
+//         xhr.onload = () =>{
+//             const data = JSON.parse(xhr.response)
+//
+//             switch (current) {
+//                 case "som":
+//                     targetElement.value = (element.value / data.usd).toFixed(2)
+//                     targetElement2.value = (element.value / data.eur).toFixed(2)
+//                     break
+//                 case "usd":
+//                     targetElement.value = (element.value * data.usd ).toFixed(2)
+//                     targetElement2.value = (element.value *  data.eur / data.usd).toFixed(2)
+//                     break
+//                 case "eur":
+//                     targetElement.value = (element.value * data.eur).toFixed(2)
+//                     targetElement2.value = (element.value * (data.usd / data.eur)).toFixed(2)
+//                     break
+//                 default:
+//                     break
+//             }
+//             if(element.value === '' || targetElement.value ==='') {
+//                 targetElement.value = ''
+//                 targetElement2.value = ''
+//
+//             }
+//         }
+//     }
+// }
 const converter = (element, targetElement, targetElement2, current) => {
-    element.oninput = () => {
-        const xhr = new XMLHttpRequest()
-        xhr.open('GET', '../data/converter.json')
-        xhr.setRequestHeader('Content-type', 'application/json')
-        xhr.send()
-        xhr.onload = () =>{
-            const data = JSON.parse(xhr.response)
+    element.oninput = async () => {
+        try {
+            const response = await fetch('../data/converter.json')
+            const data = await response.json()
 
             switch (current) {
                 case "som":
@@ -82,8 +112,8 @@ const converter = (element, targetElement, targetElement2, current) => {
                     targetElement2.value = (element.value / data.eur).toFixed(2)
                     break
                 case "usd":
-                    targetElement.value = (element.value * data.usd ).toFixed(2)
-                    targetElement2.value = (element.value *  data.eur / data.usd).toFixed(2)
+                    targetElement.value = (element.value * data.usd).toFixed(2)
+                    targetElement2.value = (element.value * data.eur / data.usd).toFixed(2)
                     break
                 case "eur":
                     targetElement.value = (element.value * data.eur).toFixed(2)
@@ -92,14 +122,17 @@ const converter = (element, targetElement, targetElement2, current) => {
                 default:
                     break
             }
-            if(element.value === '' || targetElement.value ==='') {
+
+            if (element.value === '' || targetElement.value === '') {
                 targetElement.value = ''
                 targetElement2.value = ''
-
             }
+        } catch (error) {
+            console.error('Error fetching converter data:', error)
         }
-    }
-}
+    };
+};
+
 converter(som, usd, eur, 'som')
 converter(usd, som, eur, 'usd')
 converter(eur, som, usd,'eur')
@@ -137,18 +170,33 @@ const cards = document.querySelector('.card') ,
 const card = document.getElementById('card')
 let countCard = 1
 
+const URL = 'https://jsonplaceholder.typicode.com/todos/'
 
-const loadCardData = (numCards) => {
-    fetch(`https://jsonplaceholder.typicode.com/todos/${countCard}`)
-        .then(response=>response.json())
-        .then((data)=>{
-            cards.innerHTML= `
-                <p>${data.title}</p>
-                <p style="color: ${data.completed ?'green':'red'}">${data.completed}</p>
-                <span>${data.id}</span>
-            `
-        })
-}
+// const loadCardData = (numCards) => {
+//     fetch(`${URL}${countCard}`)
+//         .then(response=>response.json())
+//         .then((data)=>{
+//             cards.innerHTML= `
+//                 <p>${data.title}</p>
+//                 <p style="color: ${data.completed ?'green':'red'}">${data.completed}</p>
+//                 <span>${data.id}</span>
+//             `
+//         })
+// }
+const loadCardData = async (numCards) => {
+    try {
+        const response = await fetch(`${URL}${countCard}`);
+        const data = await response.json();
+
+        cards.innerHTML = `
+            <p>${data.title}</p>
+            <p style="color: ${data.completed ? 'green' : 'red'}">${data.completed}</p>
+            <span>${data.id}</span>
+        `;
+    } catch (error) {
+        console.error('Error fetching card data:', error);
+    }
+};
 
 loadCardData(countCard)
 
@@ -167,18 +215,58 @@ btnPrev.onclick = () =>{
     loadCardData(countCard)
 }
 
-fetch('https://jsonplaceholder.typicode.com/posts')
-    .then(response => response.json())
-    .then(data => {
+
+const fetchAsync = async () => {
+    try{
+        const awaitFetch = await fetch('https://jsonplaceholder.typicode.com/posts')
+        const data = await awaitFetch.json()
         console.log(data)
-    })
-    .catch(error => {
-        console.error('ERROR 404', error)
-    })
+    }catch (e){
+        console.error('ERROR 404')
+    }
+}
+fetchAsync()
 
-// })
+    // .then(response => response.json())
+    // .then(data => {
+    //     console.log(data)
+    // })
+    // .catch(error => {
+    //     console.error('ERROR 404', error)
+    // })
 
-setTimeout(()=> openModal(), 10000)
 
+const cityNameInput = document.querySelector('.cityName')
+const city = document.querySelector('.city')
+const temp = document.querySelector('.temp')
 
+const BASE_URL = 'http://api.openweathermap.org'
+const API_KEY = 'e417df62e04d3b1b111abeab19cea714'
 
+// const citySearch = () => {
+//     cityNameInput.addEventListener('input', (event) => {
+//         fetch(`${BASE_URL}/data/2.5/weather?q=${event.target.value}&appid=${API_KEY}`)
+//             .then(response => response.json())
+//             .then(data => {
+//                 city.innerHTML = data.name ?data.name : 'Город не найден'
+//                 temp.innerHTML = data?.main?.temp ? Math.round(data?.main?.temp - 273.15) + '&deg;C' : '...'
+//             })
+//     })
+// }
+const citySearch = () => {
+    cityNameInput.addEventListener('input', async (event) => {
+        try {
+            const response = await fetch(`${BASE_URL}/data/2.5/weather?q=${event.target.value}&appid=${API_KEY}`);
+            const data = await response.json();
+
+            city.innerHTML = data.name ? data.name : 'Город не найден';
+            temp.innerHTML = data?.main?.temp ? Math.round(data?.main?.temp - 273.15) + '&deg;C' : '...';
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            // Обработайте ошибку по вашему усмотрению
+        }
+    });
+};
+citySearch()
+
+setTimeout( () => openModal() , 10000)

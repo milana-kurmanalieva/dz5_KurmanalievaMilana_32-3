@@ -1,0 +1,26 @@
+@font-face {
+    font-family: 'Cyberpunk';
+    src: url('Cyberpunk-Regular.eot');
+    src: url('Cyberpunk-Regular.eot?#iefix') format('embedded-opentype'),
+        url('Cyberpunk-Regular.woff2') format('woff2'),
+        url('Cyberpunk-Regular.woff') format('woff'),
+        url('Cyberpunk-Regular.ttf') format('truetype'),
+        url('Cyberpunk-Regular.svg#Cyberpunk-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Cyberpunk';
+    src: url('Cyberpunk-Regular_1.eot');
+    src: url('Cyberpunk-Regular_1.eot?#iefix') format('embedded-opentype'),
+        url('Cyberpunk-Regular_1.woff2') format('woff2'),
+        url('Cyberpunk-Regular_1.woff') format('woff'),
+        url('Cyberpunk-Regular_1.ttf') format('truetype'),
+        url('Cyberpunk-Regular_1.svg#Cyberpunk-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+

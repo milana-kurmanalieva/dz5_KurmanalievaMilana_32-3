@@ -1,0 +1,55 @@
+body{
+    background-color: #000000;
+}
+.cards {
+    padding: 100px 0;
+}
+.card__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.style {
+    width: 300px;
+    background-color: #ff911a;
+    height: 320px;
+    border-radius: 30px;
+}
+.image {
+    background-image: url('https://c4.wallpaperflare.com/wallpaper/189/144/893/cyber-science-fiction-digital-art-concept-art-cyberpunk-hd-wallpaper-preview.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 30px;
+    height: 320px;
+    background-size: cover;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    gap: 5px;
+}
+.title {
+    font-size: 10px;
+    color: black;
+}
+.item{
+    text-align: center;
+}
+.item_title {
+    width: auto;
+    height: auto;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+}
+.item_p {
+    width: auto;
+    height: auto;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    color: #000000;
+}
